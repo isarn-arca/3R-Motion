@@ -118,7 +118,8 @@ function [P,J3,J2,W] = calculo(v)
         W(3,i) =  G(3);
         i = i+1;
     end
-    // en esta parte graficaremos las velocidades de cada joint
+    
+    // en esta parte graficaremos las velocidades de cada joint de forma variable con el tiempo
     x = W(1,:);
     y = W(2,:);
     z = W(3,:);
@@ -126,7 +127,11 @@ function [P,J3,J2,W] = calculo(v)
     xlabel('tiempo (s)');
     ylabel('velocidades (rad/s)');
     title('Grafica de velocidades de las joints');
-    plot(time,x,time,y,time,z,'linewidth',2);
+    for i=1:n
+        set(gca(),"auto_clear","off");
+        xpause(500000); // nos esperamos 500000 microsegundos en cada punto
+        plot(time(1:i),x(1:i),time(1:i),y(1:i),time(1:i),z(1:i),'linewidth',2);
+    end
     legend('W1','W2','W3');
 endfunction
 
